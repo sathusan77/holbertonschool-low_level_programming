@@ -1,0 +1,4 @@
+#!/bin/bash
+# Runs a C file through the preprocessor
+
+gcc -E "$CFILE" -o c
