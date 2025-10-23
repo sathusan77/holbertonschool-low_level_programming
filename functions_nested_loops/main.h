@@ -4,8 +4,8 @@
 /**
  * File: main.h
  * Author: sathu77
- * Description: En-tête contenant les prototypes des fonctions
- * utilisées dans le projet functions_nested_loops.
+ * Description: Header file containing prototypes for functions
+ *              used in the functions_nested_loops project.
  */
 
 int _putchar(char c);
@@ -15,5 +15,6 @@ int _islower(int c);
 int _isalpha(int c);
 int print_sign(int n);
 int _abs(int n);
+int print_last_digit(int n);
 
 #endif /* MAIN_H */
