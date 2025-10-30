@@ -1,6 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+/**
+ * File: main.h
+ * Author: sathu77
+ * Description: Header file containing all prototypes
+ * for the more_functions_nested_loops project.
+ */
+
 int _putchar(char c);
 int _isupper(int c);
 int _isdigit(int c);
