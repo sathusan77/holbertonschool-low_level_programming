@@ -3,8 +3,5 @@
 
 #include <stdio.h>
 
-/* Prototype du main */
-int main(int argc, char *argv[]);
-
 #endif /* MAIN_H */
 
