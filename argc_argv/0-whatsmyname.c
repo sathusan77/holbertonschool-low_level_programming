@@ -9,7 +9,8 @@
  */
 int main(int argc, char *argv[])
 {
-    (void)argc; /* on n'utilise pas argc */
-    printf("%s\n", argv[0]);
-    return (0);
+	(void)argc; /* on n'utilise pas argc */
+	printf("%s\n", argv[0]);
+	return (0);
 }
+
