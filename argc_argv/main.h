@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-/* Prototype du programme */
+/* Prototype du main */
 int main(int argc, char *argv[]);
 
 #endif /* MAIN_H */
