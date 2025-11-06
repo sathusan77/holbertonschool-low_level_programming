@@ -1,25 +1,7 @@
-int main(int argc, char *argv[])
-{
-    int sum = 0;
-    int i;
+#ifndef MAIN_H
+#define MAIN_H
 
-    if (argc == 1) /* aucun argument */
-    {
-        printf("0\n");
-        return 0;
-    }
+int is_number(char *s);
 
-    for (i = 1; i < argc; i++)
-    {
-        if (!is_number(argv[i])) /* si un argument n’est pas un nombre */
-        {
-            printf("Error\n");
-            return 1;
-        }
-        sum += atoi(argv[i]);
-    }
-
-    printf("%d\n", sum);
-    return 0;
-}
+#endif
 
