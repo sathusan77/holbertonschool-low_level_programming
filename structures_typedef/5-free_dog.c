@@ -2,17 +2,18 @@
 #include "dog.h"
 
 /**
- * free_dog - frees dogs
- * @d: pointer to dog to free
+ * free_dog - frees memory allocated for a dog
+ * @d: pointer to dog_t structure
  */
 void free_dog(dog_t *d)
 {
-    if (d == NULL)
-        return;
-    if (d->name)
-        free(d->name);
-    if (d->owner)
-        free(d->owner);
-    free(d);
+	if (d != NULL)
+	{
+		if (d->name != NULL)
+			free(d->name);
+		if (d->owner != NULL)
+			free(d->owner);
+		free(d);
+	}
 }
 
