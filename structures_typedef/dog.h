@@ -9,19 +9,19 @@
  */
 struct dog
 {
-    char *name;
-    float age;
-    char *owner;
+	char *name;
+	float age;
+	char *owner;
 };
-
-/* Typedef for struct dog */
-typedef struct dog dog_t;
 
 /* Prototype for init_dog */
 void init_dog(struct dog *d, char *name, float age, char *owner);
 
 /* Prototype for print_dog */
 void print_dog(struct dog *d);
+
+/* Typedef for dog_t */
+typedef struct dog dog_t;
 
 #endif
 
