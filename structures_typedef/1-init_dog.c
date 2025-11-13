@@ -7,8 +7,8 @@
  * @age: âge du chien
  * @owner: propriétaire du chien
  *
- * Description: Cette fonction initialise les champs name, age et owner
- *              d'une structure dog pointée par d.
+ * Description: Cette fonction assigne les valeurs passées en
+ *              paramètres aux champs de la structure dog.
  */
 void init_dog(dog *d, char *name, float age, char *owner)
 {
