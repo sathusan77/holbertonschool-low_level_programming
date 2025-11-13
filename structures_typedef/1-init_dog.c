@@ -8,7 +8,7 @@
  * @owner: owner of the dog
  *
  * Description: assigns the values of name, age, and owner
- *		to the members of the struct dog pointed to by d.
+ *	to the members of the struct dog pointed to by d.
  */
 void init_dog(dog *d, char *name, float age, char *owner)
 {
