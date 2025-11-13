@@ -1,14 +1,14 @@
 #include "dog.h"
 
 /**
- * init_dog - initialise un chien
- * @d: pointeur vers la structure dog
- * @name: nom du chien
- * @age: âge du chien
- * @owner: propriétaire du chien
+ * init_dog - initializes a variable of type dog
+ * @d: pointer to the dog
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
  *
- * Description: Cette fonction assigne les valeurs passées en
- *              paramètres aux champs de la structure dog.
+ * Description: assigns the values passed as parameters to
+ *              the members of the struct dog.
  */
 void init_dog(dog *d, char *name, float age, char *owner)
 {
