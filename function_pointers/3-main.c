@@ -1,11 +1,11 @@
 #include "3-calc.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(int argc, char *argv[])
 {
-    int num1, num2;
-    int (*op_func)(int, int);
+    int a, b;
+    int (*func)(int, int);
 
     if (argc != 4)
     {
@@ -13,23 +13,23 @@ int main(int argc, char *argv[])
         exit(98);
     }
 
-    op_func = get_op_func(argv[2]);
-    if (op_func == NULL)
+    a = atoi(argv[1]);
+    b = atoi(argv[3]);
+    func = get_op_func(argv[2]);
+
+    if (!func)
     {
         printf("Error\n");
         exit(99);
     }
 
-    num1 = atoi(argv[1]);
-    num2 = atoi(argv[3]);
-
-    if ((argv[2][0] == '/' || argv[2][0] == '%') && num2 == 0)
+    if ((argv[2][0] == '/' || argv[2][0] == '%') && b == 0)
     {
         printf("Error\n");
         exit(100);
     }
 
-    printf("%d\n", op_func(num1, num2));
+    printf("%d\n", func(a, b));
     return (0);
 }
 
