@@ -3,34 +3,33 @@
 #include <stdio.h>
 
 /**
- * print_strings - Imprime des chaînes de caractères séparées par un séparateur
- * @separator: Chaîne entre les mots (peut être NULL)
- * @n: Nombre de chaînes à afficher
- * @...: Nombre variable de chaînes
+ * print_strings - prints strings separated by a separator
+ * @separator: string printed between strings (can be NULL)
+ * @n: number of strings passed
+ * @...: variable number of strings
  */
 void print_strings(const char *separator, const unsigned int n, ...)
 {
-    va_list args;            // 1. Déclare la liste d'arguments variables
-    unsigned int i;          // 2. Compteur de boucle
-    char *str;               // 3. Pour récupérer chaque chaîne
+	va_list args; /* declare list of arguments */
+	unsigned int i;
+	char *str;
 
-    va_start(args, n);       // 4. Initialise args pour récupérer les arguments après 'n'
+	va_start(args, n); /* initialize args to retrieve the arguments */
 
-    for (i = 0; i < n; i++)  // 5. Parcours tous les arguments
-    {
-        str = va_arg(args, char *);  // 6. Récupère le i-ème argument
+	for (i = 0; i < n; i++)
+	{
+		str = va_arg(args, char *); /* get next argument */
 
-        if (str == NULL)             // 7. Vérifie si la chaîne est NULL
-            printf("(nil)");
-        else
-            printf("%s", str);
+		if (str == NULL)
+			printf("(nil)");
+		else
+			printf("%s", str);
 
-        // 8. Affiche le séparateur seulement si ce n'est pas le dernier mot
-        if (separator != NULL && i < n - 1)
-            printf("%s", separator);
-    }
+		if (separator != NULL && i < n - 1)
+			printf("%s", separator);
+	}
 
-    printf("\n");           // 9. Nouvelle ligne à la fin
-    va_end(args);           // 10. Libère la mémoire de la liste d'arguments
+	printf("\n");
+	va_end(args);
 }
 
