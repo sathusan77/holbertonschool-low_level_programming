@@ -3,9 +3,9 @@
 #include <stdio.h>
 
 /**
- * print_all - prints anything based on a format string
- * @format: types of arguments c, i, f, s
- * @...: variable number of arguments
+ * print_all - prints arguments of different types
+ * @format: types of arguments (c, i, f, s)
+ * @...: variable arguments
  */
 void print_all(const char * const format, ...)
 {
@@ -38,6 +38,7 @@ void print_all(const char * const format, ...)
 		}
 		i++;
 	}
+
 	va_end(args);
 	printf("\n");
 }
