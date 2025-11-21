@@ -4,8 +4,7 @@
 
 /**
  * print_all - prints anything based on a format string
- * @format: string representing types of arguments
- *         c: char, i: int, f: float, s: string
+ * @format: types of arguments c, i, f, s
  * @...: variable number of arguments
  */
 void print_all(const char * const format, ...)
@@ -17,27 +16,28 @@ void print_all(const char * const format, ...)
 
 	va_start(args, format);
 
-	while (format != NULL && format[i] != '\0')
+	while (format && format[i])
 	{
-		if (format[i] == 'c')
-			printf("%s%c", sep, va_arg(args, int));
-		if (format[i] == 'i')
-			printf("%s%d", sep, va_arg(args, int));
-		if (format[i] == 'f')
-			printf("%s%f", sep, va_arg(args, double));
-		if (format[i] == 's')
-		{
-			str = va_arg(args, char *);
-			if (str == NULL)
-				str = "(nil)";
-			printf("%s%s", sep, str);
-		}
 		if (format[i] == 'c' || format[i] == 'i' ||
 		    format[i] == 'f' || format[i] == 's')
+		{
+			if (format[i] == 'c')
+				printf("%s%c", sep, va_arg(args, int));
+			if (format[i] == 'i')
+				printf("%s%d", sep, va_arg(args, int));
+			if (format[i] == 'f')
+				printf("%s%f", sep, va_arg(args, double));
+			if (format[i] == 's')
+			{
+				str = va_arg(args, char *);
+				if (!str)
+					str = "(nil)";
+				printf("%s%s", sep, str);
+			}
 			sep = ", ";
+		}
 		i++;
 	}
-
 	va_end(args);
 	printf("\n");
 }
