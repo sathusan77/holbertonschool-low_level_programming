@@ -1,51 +1,73 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#define BUFFER_SIZE 1024
 
 /**
- * print_error - prints an error message and exits with code
- * @code: exit code
- * @msg: error message format
- * @file: file name or fd
+ * close_fd - print error and exit when close fails
+ * @fd: file descriptor that failed to close
  */
-void print_error(int code, char *msg, char *file)
+void close_fd(int fd)
 {
-	if (code == 100)
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", (int)(long)file);
-	else
-		dprintf(STDERR_FILENO, msg, file);
-	exit(code);
+	dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+	exit(100);
 }
 
 /**
- * copy_file - copies content from source to destination
- * @src: source file descriptor
- * @dest: destination file descriptor
- * @file_from: source file name
- * @file_to: destination file name
+ * copy_fromf_tof - copy content of one file into another
+ * @from: source file
+ * @to: destination file
  */
-void copy_file(int src, int dest, char *file_from, char *file_to)
+void copy_fromf_tof(const char *from, const char *to)
 {
-	ssize_t n_read, n_written;
-	char buffer[BUFFER_SIZE];
+	int fd_src, fd_dst, rlen, wlen;
+	char buff[1024];
 
-	while ((n_read = read(src, buffer, BUFFER_SIZE)) > 0)
+	fd_src = open(from, O_RDONLY);
+	if (fd_src == -1)
 	{
-		n_written = write(dest, buffer, n_read);
-		if (n_written != n_read)
-			print_error(99, "Error: Can't write to %s\n", file_to);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", from);
+		exit(98);
 	}
-	if (n_read == -1)
-		print_error(98, "Error: Can't read from file %s\n", file_from);
+	fd_dst = open(to, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (fd_dst == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", to);
+		close_fd(fd_src);
+	}
+	while ((rlen = read(fd_src, buff, 1024)) > 0)
+	{
+		wlen = write(fd_dst, buff, rlen);
+		if (wlen == -1 || wlen != rlen)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", to);
+			close_fd(fd_src);
+			close_fd(fd_dst);
+		}
+	}
+	if (rlen == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", from);
+		close_fd(fd_src);
+		close_fd(fd_dst);
+	}
+	if (close(fd_src) == -1)
+		close_fd(fd_src);
+	if (close(fd_dst) == -1)
+		close_fd(fd_dst);
 }
 
 /**
- * open_files - opens source and destination files
- * @file_from: source file name
- * @file_to: destination file name
- * @fd_from: pointer to store source_*
+ * main - entry
+ * @ac: count
+ * @av: vector
+ * Return: 0 on success
+ */
+int main(int ac, char **av)
+{
+	if (ac != 3)
+	{
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
+	}
 
+	copy_fromf_tof(av[1], av[2]);
+	return (0);
+}
