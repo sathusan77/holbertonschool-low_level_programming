@@ -4,10 +4,10 @@
 
 /**
  * create_node - creates a new hash node
- * @key: key string
- * @value: value string
+ * @key: the key
+ * @value: the value
  *
- * Return: pointer to the new node, or NULL if failed
+ * Return: pointer to the new node or NULL if failed
  */
 hash_node_t *create_node(const char *key, const char *value)
 {
@@ -37,28 +37,44 @@ hash_node_t *create_node(const char *key, const char *value)
 }
 
 /**
- * update_value - updates the value of an existing node
- * @node: node to update
- * @value: new value
+ * hash_table_set - adds or updates an element in the hash table
+ * @ht: hash table
+ * @key: key (cannot be empty)
+ * @value: value associated with key
  *
- * Return: 1 if success, 0 if failed
+ * Return: 1 if success, 0 otherwise
  */
-int update_value(hash_node_t *node, const char *value)
+int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-	char *new_value;
+	hash_node_t *tmp, *new_node;
+	unsigned long int index;
 
-	new_value = strdup(value);
-	if (!new_value)
+	if (!ht || !key || *key == '\0' || !value)
 		return (0);
 
-	free(node->value);
-	node->value = new_value;
+	index = key_index((const unsigned char *)key, ht->size);
+	tmp = ht->array[index];
+
+	while (tmp)
+	{
+		if (strcmp(tmp->key, key) == 0)
+		{
+			free(tmp->value);
+			tmp->value = strdup(value);
+			if (!tmp->value)
+				return (0);
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+
+	new_node = create_node(key, value);
+	if (!new_node)
+		return (0);
+
+	new_node->next = ht->array[index];
+	ht->array[index] = new_node;
+
 	return (1);
 }
-
-/**
- * hash_table_set - adds an element to the hash table
- * @ht: the hash table
- * @key: the key (cannot be an empty string)
- * @value: the value a*
 
